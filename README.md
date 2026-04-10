@@ -1,16 +1,15 @@
-```markdown
 # 🔐 AES-256-GCM Encryption (Java ↔ PHP Compatible)
 
-এই README-তে Java এবং PHP ব্যবহার করে *AES-256-GCM encryption/decryption* সম্পূর্ণভাবে দেখানো হয়েছে, যাতে দুই প্ল্যাটফর্ম একে অপরের সাথে compatible থাকে।
+এই README-তে Java এবং PHP ব্যবহার করে **AES-256-GCM encryption/decryption** সম্পূর্ণভাবে দেখানো হয়েছে, যাতে দুই প্ল্যাটফর্ম একে অপরের সাথে compatible থাকে।
 
 ---
 
 ## 📌 Configuration
 
-- *Algorithm:* AES-256-GCM  
-- *IV Length:* 12 bytes  
-- *Auth Tag Length:* 16 bytes  
-- *Key Derivation:* SHA-256  
+- **Algorithm:** AES-256-GCM  
+- **IV Length:** 12 bytes  
+- **Auth Tag Length:** 16 bytes  
+- **Key Derivation:** SHA-256  
 
 ---
 
@@ -176,9 +175,9 @@ Base64(
 
 # ⚠️ গুরুত্বপূর্ণ বিষয়
 
-* প্রতিবার encryption-এ নতুন IV ব্যবহার করতে হবে
-* Secret key কখনো public করা যাবে না
-* AES-GCM নিজেই authentication দেয় (extra hash লাগবে না)
+** প্রতিবার encryption-এ নতুন IV ব্যবহার করতে হবে
+** Secret key কখনো public করা যাবে না
+** AES-GCM নিজেই authentication দেয় (extra hash লাগবে না)
 
 ---
 
@@ -208,6 +207,3 @@ $dec = decryptData($enc);
 | PHP      | ✅       | ✅       |
 
 ---
-
-```
-```
