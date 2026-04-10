@@ -206,6 +206,60 @@ $enc = encryptData("1709409266");
 $dec = decryptData($enc);
 ```
 
+## ✅ JavaScript Version (AES-GCM + SHA-256)
+
+```javascript
+async function encryptData(plainText, apiPassword) {
+    // 1. Text → Uint8Array
+    const encoder = new TextEncoder();
+    const data = encoder.encode(plainText);
+
+    // 2. SHA-256 দিয়ে key generate
+    const passwordBytes = encoder.encode(apiPassword);
+    const keyHash = await crypto.subtle.digest("SHA-256", passwordBytes);
+
+    // 3. AES key তৈরি
+    const key = await crypto.subtle.importKey(
+        "raw",
+        keyHash,
+        { name: "AES-GCM" },
+        false,
+        ["encrypt"]
+    );
+
+    // 4. Random IV (12 bytes)
+    const iv = crypto.getRandomValues(new Uint8Array(12));
+
+    // 5. Encrypt
+    const encrypted = await crypto.subtle.encrypt(
+        {
+            name: "AES-GCM",
+            iv: iv,
+            tagLength: 128
+        },
+        key,
+        data
+    );
+
+    // 6. IV + encrypted combine
+    const combined = new Uint8Array(iv.length + encrypted.byteLength);
+    combined.set(iv, 0);
+    combined.set(new Uint8Array(encrypted), iv.length);
+
+    // 7. Base64 encode
+    return btoa(String.fromCharCode(...combined));
+}
+```
+
+---
+
+## 📌 ব্যবহার উদাহরণ
+
+```javascript
+encryptData("Hello World", "your_api_password")
+    .then(result => console.log(result));
+```
+
 ---
 
 # ✅ Compatibility
