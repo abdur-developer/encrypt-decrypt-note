@@ -207,3 +207,13 @@ $dec = decryptData($enc);
 | PHP      | ✅       | ✅       |
 
 ---
+
+---
+# ✅ Class Reference
+<p align="center">
+  <img src="encrypt in java.png"  />
+  <img src="encrypt with key in java.png"  />
+  <img src="decrypt with key in java.png"  />
+  <img src="encrypt decrypt php with key.png"  />
+</p>
+---
