@@ -129,16 +129,25 @@ function decryptData($encryptedData) {
     $key = "AbdurRahman123$$";
 
     $keyBytes = hash('sha256', $key, true);
-
     $combined = base64_decode($encryptedData);
+
+    if ($combined === false) {
+        throw new Exception("Invalid Base64");
+    }
+
+    if (strlen($combined) < 28) {
+        throw new Exception("Data too short");
+    }
 
     $iv = substr($combined, 0, 12);
     $ciphertextWithTag = substr($combined, 12);
 
-    $tagLength = 16;
+    $tag = substr($ciphertextWithTag, -16);
+    $ciphertext = substr($ciphertextWithTag, 0, -16);
 
-    $tag = substr($ciphertextWithTag, -$tagLength);
-    $ciphertext = substr($ciphertextWithTag, 0, -$tagLength);
+    if (strlen($iv) !== 12 || strlen($tag) !== 16) {
+        throw new Exception("Invalid IV or TAG");
+    }
 
     $decrypted = openssl_decrypt(
         $ciphertext,
@@ -150,7 +159,7 @@ function decryptData($encryptedData) {
     );
 
     if ($decrypted === false) {
-        throw new Exception("Decryption failed");
+        throw new Exception("Decryption failed (key/iv/tag mismatch)");
     }
 
     return $decrypted;
